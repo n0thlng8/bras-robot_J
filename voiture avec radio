@@ -1,0 +1,49 @@
+def on_received_number(receivedNumber):
+    if receivedNumber == 1:
+        avancer(90, 450)
+    elif receivedNumber == 2:
+        avancer2(55, 450)
+    elif receivedNumber == 3:
+        gauche(88, 150)
+    elif receivedNumber == 4:
+        droit(180, 150)
+    elif receivedNumber == 5:
+        laser(2000)
+radio.on_received_number(on_received_number)
+
+def stop():
+    pins.servo_write_pin(AnalogPin.P1, 90)
+    pins.servo_write_pin(AnalogPin.P2, 90)
+def gauche(avan: number, temps: number):
+    basic.show_arrow(ArrowNames.EAST)
+    pins.servo_write_pin(AnalogPin.P1, 90 - avan)
+    basic.pause(temps)
+    stop()
+def laser(time: number):
+    basic.show_icon(IconNames.NO)
+    pins.digital_write_pin(DigitalPin.P8, 1)
+    basic.pause(time)
+def droit(avan2: number, temps2: number):
+    basic.show_arrow(ArrowNames.WEST)
+    pins.servo_write_pin(AnalogPin.P2, 90 + avan2)
+    basic.pause(temps2)
+    stop()
+def avancer(avan3: number, temps3: number):
+    basic.show_arrow(ArrowNames.NORTH)
+    pins.servo_write_pin(AnalogPin.P1, 90 - avan3)
+    pins.servo_write_pin(AnalogPin.P2, 90 + avan3)
+    basic.pause(temps3)
+    stop()
+def avancer2(avan4: number, temps4: number):
+    basic.show_arrow(ArrowNames.SOUTH)
+    pins.servo_write_pin(AnalogPin.P1, 90 + avan4)
+    pins.servo_write_pin(AnalogPin.P2, 90 - avan4)
+    basic.pause(temps4)
+    stop()
+basic.show_icon(IconNames.YES)
+radio.set_group(69)
+
+def on_forever():
+    basic.show_number(8)
+basic.forever(on_forever)
+    
